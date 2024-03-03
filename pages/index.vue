@@ -14,13 +14,17 @@
                     layer-type="base"
                     name="OpenStreetMap"
                 />
-
+ 
                 <l-geo-json 
         :geojson="wateren"
         :options="waterenOptions"
         :options-style="waterenStyleFunction"
       />
-      <l-geo-json 
+
+
+
+
+<l-geo-json 
         :geojson="bouw"
         :options="bouwOptions"
         :options-style="bouwStyleFunction"
@@ -33,52 +37,54 @@
       />
 -->
       <l-geo-json 
-        :geojson="perceel"
+        :geojson="bouwland"
         :options="perceelOptions"
         :options-style="perceelStyleFunction"
+        onEachFuture: layer.bindPopup(feature)
       />
       <l-geo-json 
-        :geojson="perceel_dennenbos"
+        :geojson="dennenbos"
         :options="perceel_dennenbosOptions"
         :options-style="perceelDennenbosStyleFunction"
       />
       <l-geo-json 
-        :geojson="perceel_heide"
+        :geojson="heide"
         :options="perceel_heideOptions"
         :options-style="perceelHeideStyleFunction"
       />
       <l-geo-json 
-        :geojson="perceel_hakhout"
+        :geojson="hakhout"
         :options="perceel_hakhoutOptions"
         :options-style="perceelHakhoutStyleFunction"
       />
       <l-geo-json 
-        :geojson="perceel_boomgaard"
+        :geojson="boomgaard"
         :options="perceel_boomgaardOptions"
         :options-style="perceelBoomgaardStyleFunction"
       />
       <l-geo-json 
-        :geojson="perceel_hooiland"
+        :geojson="hooiland"
         :options="perceel_hooilandOptions"
         :options-style="perceelHooilandStyleFunction"
       />
       <l-geo-json 
-        :geojson="perceel_kerkhof"
+        :geojson="kerkhof"
         :options="perceel_kerkhofOptions"
         :options-style="perceelKerkhofStyleFunction"
       />
       <l-geo-json 
-        :geojson="perceel_tuin"
+        :geojson="tuin"
         :options="perceel_tuinOptions"
         :options-style="perceelTuinStyleFunction"
       />
       <l-geo-json 
-        :geojson="perceel_weiland"
+        :geojson="weiland"
         :options="perceel_weilandOptions"
         :options-style="perceelWeilandStyleFunction"
+ 
       />
       <l-geo-json 
-        :geojson="perceel_bebouwing"
+        :geojson="bebouwing"
         :options="perceel_bebouwingOptions"
         :options-style="perceelBebouwingStyleFunction"
       />
@@ -98,21 +104,40 @@
 <script setup>
 import { ref } from 'vue'
 import 'leaflet/dist/leaflet.css'; 
+//import Vue from 'vue'
+//import bindpopup  from 'nuxt3-leaflet'
 
-import perceel from "./perceel.json"
-  import perceel_dennenbos from "./perceel_dennenbos.json"
-  import perceel_heide from "./perceel_heide.json"
-  import perceel_hakhout from "./perceel_hakhout.json"
-  import perceel_boomgaard from "./perceel_boomgaard.json"
-  import perceel_hooiland from "./perceel_hooiland.json"
-  import perceel_kerkhof from "./perceel_kerkhof.json"
-  import perceel_tuin from "./perceel_tuin.json"
-  import perceel_weiland from "./perceel_weiland.json"
+
+//import perceel from "./perceel.json"
+  //import perceel_dennenbos from "./perceel_dennenbos.json"
+  //import perceel_heide from "./perceel_heide.json"
+  //import perceel_hakhout from "./perceel_hakhout.json"
+  //import perceel_boomgaard from "./perceel_boomgaard.json"
+  //import perceel_hooiland from "./perceel_hooiland.json"
+  //import perceel_kerkhof from "./perceel_kerkhof.json"
+  //import perceel_tuin from "./perceel_tuin.json"
+  //import perceel_weiland from "./perceel_weiland.json"
 
 const zoom = ref(12.48)
 
+  const perceelOptions = {
+//    onEachFuture: bindPopup("aap")
+  }
+
+function perceelFeature(feature, layer) {
+        if (1 === 1) {
+//          console.log("app")
+//            layer.bindPopup(" " +feature.properties.name + " "  + "<br>Affected Bridges : " + feature.properties.Br_Affected + " ");
+              layer.bindPopup("aap")
+        }
+};
+
   
-  const  perceelStyleFunction = {   fillColor: "#d1c40f",
+//const waterenOptions ={
+//    onEachFeature: leaflet.bindPopup("aap")
+//}
+
+        const  perceelStyleFunction = {   fillColor: "#d1c40f",
     color: "#000",
     weight: 1,
     opacity: 1,
@@ -192,14 +217,55 @@ const zoom = ref(12.48)
   const  perceelgrensStyleFunction = {color:  'black'}
   //const geojson = await fetch('http://localhost:8080/geoserver/eghv/ows?service=WFS&typenames=eghv:bouw&version=2.0.0&outputformat=application/json&request=GetFeature').then(res => res.json)
   //const response = await fetch('http://localhost:8080/geoserver/eghv/ows?service=WFS&typenames=eghv:wateren&version=2.0.0&outputformat=application/json&request=GetFeature')
-  const wateren_pkl = await fetch("http://localhost:8080/geoserver/eghv/ows?service=WFS&typenames=eghv:wateren&version=2.0.0&outputformat=application/json&request=GetFeature")
+  const wateren_pkl = await fetch("http://yann216.nl:8080/geoserver/eghv/ows?service=WFS&typenames=eghv:wateren&version=2.0.0&outputformat=application/json&request=GetFeature")
   const data = await wateren_pkl.json();
   const wateren = data;
 
-  const bouw_pkl = await fetch("http://localhost:8080/geoserver/eghv/ows?service=WFS&typenames=eghv:bouw&version=2.0.0&outputformat=application/json&request=GetFeature")
+  const bouw_pkl = await fetch("http://yann216.nl:8080/geoserver/eghv/ows?service=WFS&typenames=eghv:bouw&version=2.0.0&outputformat=application/json&request=GetFeature")
   const datab = await bouw_pkl.json();
   const bouw = datab;
 
+
+  const weiland_pkl = await fetch("http://yann216.nl:8080/geoserver/eghv/ows?service=WFS&version=2.0.0&request=GetFeature&outputformat=application/json&typenames=eghv:perceel&cql_filter=oat_omschrijving='weiland'")
+  const dataw = await weiland_pkl.json();
+  const weiland = dataw;
+
+
+  const boomgaard_pkl = await fetch("http://yann216.nl:8080/geoserver/eghv/ows?service=WFS&version=2.0.0&request=GetFeature&outputformat=application/json&typenames=eghv:perceel&cql_filter=oat_omschrijving='boomgaard'")
+  const databoomgaard= await boomgaard_pkl.json();
+  const boomgaard = databoomgaard;
+
+  const bebouwing_pkl = await fetch("http://yann216.nl:8080/geoserver/eghv/ows?service=WFS&version=2.0.0&request=GetFeature&outputformat=application/json&typenames=eghv:perceel&cql_filter=oat_omschrijving IS NULL")
+  const databebouwing = await bebouwing_pkl.json();
+  const bebouwing = databebouwing;
+
+  const dennenbos_pkl = await fetch("http://yann216.nl:8080/geoserver/eghv/ows?service=WFS&version=2.0.0&request=GetFeature&outputformat=application/json&typenames=eghv:perceel&cql_filter=oat_omschrijving='dennenbos'")
+  const datadennenbos = await dennenbos_pkl.json();
+  const dennenbos= datadennenbos;
+
+  const hakhout_pkl = await fetch("http://yann216.nl:8080/geoserver/eghv/ows?service=WFS&version=2.0.0&request=GetFeature&outputformat=application/json&typenames=eghv:perceel&cql_filter=oat_omschrijving='hakhout'")
+  const datahakhout = await hakhout_pkl.json();
+  const hakhout = datahakhout;
+
+  const hooiland_pkl = await fetch("http://yann216.nl:8080/geoserver/eghv/ows?service=WFS&version=2.0.0&request=GetFeature&outputformat=application/json&typenames=eghv:perceel&cql_filter=oat_omschrijving='hooiland'")
+  const datahooiland = await hooiland_pkl.json();
+  const hooiland = datahooiland;
+
+  const kerkhof_pkl = await fetch("http://yann216.nl:8080/geoserver/eghv/ows?service=WFS&version=2.0.0&request=GetFeature&outputformat=application/json&typenames=eghv:perceel&cql_filter=oat_omschrijving='kerkhof'")
+  const datakerkhof = await kerkhof_pkl.json();
+  const kerkhof = datakerkhof;
+
+  const tuin_pkl = await fetch("http://yann216.nl:8080/geoserver/eghv/ows?service=WFS&version=2.0.0&request=GetFeature&outputformat=application/json&typenames=eghv:perceel&cql_filter=oat_omschrijving='tuin'")
+  const datatuin = await tuin_pkl.json();
+  const tuin = datatuin;
+
+  const heide_pkl = await fetch("http://yann216.nl:8080/geoserver/eghv/ows?service=WFS&version=2.0.0&request=GetFeature&outputformat=application/json&typenames=eghv:perceel&cql_filter=oat_omschrijving='heide'")
+  const dataheide = await heide_pkl.json();
+  const heide = dataheide;
+
+  const bouwland_pkl = await fetch("http://yann216.nl:8080/geoserver/eghv/ows?service=WFS&version=2.0.0&request=GetFeature&outputformat=application/json&typenames=eghv:perceel&cql_filter=oat_omschrijving='bouwland'")
+  const databouwland = await bouwland_pkl.json();
+  const bouwland = databouwland;  
 
 </script>
 
