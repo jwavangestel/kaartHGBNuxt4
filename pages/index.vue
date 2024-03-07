@@ -1,11 +1,30 @@
 <template>
+  <header class="bg-white">
+  <nav class="mx-auto flex max-w-10xl items-center justify-between p-6 lg:px-8" aria-label="Global">
+    <div class="flex lg:flex-1">
+      <a href="#" class="-m-1.5 p-1.5">
+        <span class="sr-only">Your Company</span>
+        <img class="h-12 w-auto" src="https://www.erfgoedhuisveldhoven.nl/wp-content/uploads/2021/03/logo-157-51-1.png" alt="">
+      </a>
+    </div>
+
+    <div class="hidden lg:flex lg:gap-x-12">
+
+      <a href="https://erfgoedhuisveldhoven.nl" class="text-sm font-semibold leading-6 text-gray-900">Home</a>
+ 
+    </div>
+
+  </nav>
+
+</header>
     <div class="grid grid-cols-12">
         <div class="col-start-1 and col-end-4">
-          <feature-viewer v-if="currentFeature !== null" :feature="currentFeature" />
-        </div>
-        <div class="col-start-4 and col-end-13">
+          <feature-viewer  :feature="currentFeature" />
 
-            <div style="height:100vh">
+        </div>
+        <div class="col-start-4 and col-end-12 ">
+          <div class=" ring-2 ring-gray-500 rounded">
+            <div style="height:75vh">
               <l-map ref="map" v-model:zoom="zoom" v-model:center="center" :useGlobalLeaflet="false">
 
                 <LTileLayer
@@ -89,9 +108,20 @@
                 />
               </l-map>
             </div>
+          </div>
         </div>
     </div>  
-        
+    <br>
+    <div class=" ring-2 ring-gray-500 rounded bg-blue-950
+    ">
+        <div style="height:9.5vh ">
+          <div class="text-indigo-400 text-xl text-center">
+            <br>
+          Erfgoedhuis Veldhoven
+        </div>
+        </div>
+    </div>
+            
 </template>
 
 <script setup>
